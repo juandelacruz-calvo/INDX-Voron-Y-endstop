@@ -1,6 +1,10 @@
 # INDX Voron 2.4 rear Y endstop
 
-A rear Y endstop for a **Voron 2.4** running the **[INDX for Voron 2.4](https://github.com/karasgit/INDX-for-Voron-2.4)** rear-mount tool changer with an **umbilical** (no cable chains). Print two replacement parts and the endstop is built in: no add-on brackets, no extra screws, and nothing on the toolhead side of the gantry.
+A rear Y endstop **for the Voron 2.4 with INDX**: the [INDX for Voron 2.4](https://github.com/karasgit/INDX-for-Voron-2.4) rear-mount tool changer, run with an **umbilical** (no cable chains). It's **compatible with Voron 2.4 GE5C Z joints**.
+
+Print two replacement parts and the endstop is built in: no add-on brackets, no extra screws, and nothing on the toolhead side of the gantry.
+
+> **Requires:** Voron 2.4 + INDX (`XY Joint - Right up V2`) + umbilical. **Works with:** stock or GE5C Z joints.
 
 ![Overview](images/overview.png)
 
@@ -29,7 +33,7 @@ When the gantry moves to the rear, the wing on the joint presses the switch leve
 
 ## Why this exists
 
-INDX moves the toolhead to the **rear** of the X extrusion and docks tools at the back of the printer. INDX's own Y endstop sits on the front-right Z bearing block. If that position is taken (by another mod, for example), you need a rear endstop, and the usual options don't fit INDX:
+INDX moves the toolhead to the **rear** of the X extrusion and docks tools at the back of the printer. INDX's own Y endstop sits on the front-right Z bearing block. With GE5C Z joints, or any other mod that changes the Z joints, that mount isn't available, so you need a rear endstop. The usual options don't fit INDX:
 
 - **Stock Voron Y endstop pod**: it lives under the XY joint and needs the Y cable chain for its wiring. With an umbilical, the Y chain is gone.
 - **[Y endstop relocation mod](https://www.printables.com/model/324787-voron-v24-and-trident-y-endstop-relocation-mod)**: the switch sits on the front motor screws, centred on the motor, and a bumper bolts to the stock XY joint's cable-bridge holes. On INDX:
@@ -46,8 +50,9 @@ This design moves everything to the **outboard** rear corner, in front of the Z 
 
 | | |
 | --- | --- |
-| Printer | Voron 2.4 (r2 geometry). The gantry corner is the same for 250/300/350, so the trigger point doesn't depend on size. Developed on an LDO Voron 2.4 Rev D 350. |
-| Tool changer | INDX for Voron 2.4, with `XY Joint - Right up V2` |
+| Printer | **Voron 2.4** (r2 geometry). The gantry corner is the same for 250/300/350, so the trigger point doesn't depend on size. Developed on an LDO Voron 2.4 Rev D 350. Not for the Trident or Voron 0. |
+| Tool changer | **INDX for Voron 2.4**, with `XY Joint - Right up V2`. Without INDX, use the stock Voron Y endstop or the Printables relocation mod instead. |
+| Z joints | Stock Voron 2.4 Z joints or **GE5C Z joints**. Nothing mounts on the Z joints, so the design is independent of them. |
 | Cabling | Umbilical, **no Y cable chain**. The wing runs where the chain used to lie. |
 | Switch | Omron D2F-5L (hinge lever), same as the stock Voron endstops |
 | Side | Right side only (right XY joint, right-rear Z belt clip). A left version would mirror, but isn't verified against the INDX left joint. |
@@ -133,7 +138,7 @@ homing_retract_dist: 5
 
 ## First homing checklist
 
-- [ ] Motors off: push the gantry back by hand at your homing X. The switch **clicks before anything else touches**, including the toolhead and the dock.
+- [ ] Motors off: push the gantry back by hand at your homing X. The switch **clicks before anything else touches**, including the toolhead, the dock, and the rear Z joint (stock or GE5C).
 - [ ] `QUERY_ENDSTOPS` shows `open` with the gantry away from the switch and `TRIGGERED` with the lever pressed.
 - [ ] `homing_speed` is low (20 mm/s) for the first homes, and your hand is near the power switch.
 - [ ] After homing, a dock/undock cycle at each tool position works without the switch triggering.
@@ -150,9 +155,11 @@ All geometry was measured from the official **Voron 2.4 r2 CAD assembly** (STEP)
 | Wing touches the lever tip | 124.5 mm |
 | Switch triggers (D2F operating point, ±1.2 mm) | **≈ 126.5 mm** (stock Y endstop pod: ≈ 126–127 mm) |
 | Wing meets the switch body / cheek face | 129.5 mm |
-| INDX joint reaches the Z bearing block (hard limit, same as stock) | 129.85 mm |
+| INDX joint reaches the rear Z joint (hard limit, same as stock; measured with the stock Z joint) | 129.85 mm |
 
 That leaves about 3 mm between the click and the first contact.
+
+**GE5C Z joints:** the endstop doesn't use the Z joints, so nothing changes for the switch or the wing. The "hard limit" row above is the stock printer's own limit, measured with the stock rear Z joint. A GE5C joint has a different shape, so when you push the gantry back by hand (see the [checklist](#first-homing-checklist)), check that the switch clicks before the joint's carriage pad reaches the rear Z joint. The switch triggers at stock Y travel, so any GE5C setup that already reached the stock Y endstop is fine.
 
 **Clearances**
 
